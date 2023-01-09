@@ -4,7 +4,6 @@ import { topics } from '../utils/constants';
 
 const Discover = () => {
   const router = useRouter();
-  console.log(router);
   const { topic } = router.query;
 
   const activeTopicStyle =
