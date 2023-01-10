@@ -1,19 +1,14 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { client } from '../../../utils/client';
-import { allPostsQuery } from '../../../utils/queries';
+import { postDetailQuery } from '../../../utils/queries';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
-    console.log(req.query);
-    const query = allPostsQuery();
+    const { id } = req.query;
+    if (!id) return;
+    const query = postDetailQuery(id);
     const data = await client.fetch(query);
-    return res.status(200).json(data);
-  }
-
-  if (req.method === 'POST') {
-    const document = req.body;
-    await client.create(document);
-    return res.status(201).json('Video Created and Added To the Database');
+    return res.status(200).json(data[0]);
   }
 }

@@ -19,14 +19,16 @@ export const App = ({ Component, pageProps }: AppProps) => {
 
   return (
     <GoogleOAuthProvider clientId={`${process.env.NEXT_PUBLIC_GOOGLE_API_TOKEN}`}>
-      <div className='bg-white dark:bg-black text-black'>
-        <Navbar />
-        <div className='flex gap-6 md:gap-20'>
-          <div className='h-[92vh] overflow-hidden xl:hover:overflow-auto border-r-2'>
-            <Sidebar />
-          </div>
-          <div className='mt-4 flex flex-col gap-10 overflow-auto h-[88vh] videos flex-1'>
-            <Component {...pageProps} />
+      <div className='bg-white'>
+        <div className=' xl:w-[1200px] h-[100vh] m-auto overflow-hidden bg-white dark:bg-black text-black'>
+          <Navbar />
+          <div className='flex gap-6 md:gap-20'>
+            <div className='h-[92vh] overflow-hidden xl:hover:overflow-auto'>
+              <Sidebar />
+            </div>
+            <div className='mt-4 flex flex-col gap-10 overflow-auto h-[88vh] videos flex-1'>
+              <Component {...pageProps} />
+            </div>
           </div>
         </div>
       </div>
