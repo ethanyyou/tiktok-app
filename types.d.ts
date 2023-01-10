@@ -1,4 +1,4 @@
-export interface Video {
+export type Video = {
   caption: string;
   video: {
     asset: {
@@ -27,11 +27,11 @@ export interface Video {
     };
   }[];
   userId: string;
-}
+};
 
-export interface IUser {
+export type User = {
   _id: string;
   _type: string;
   userName: string;
   image: string;
-}
+};
