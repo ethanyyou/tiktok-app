@@ -59,7 +59,7 @@ const Footer = () => {
         <a href='#'>
           <FaAddressCard />
         </a>
-        <a href='https://www.linkedin.com/in/easian-yu/'>
+        <a href='https://www.linkedin.com/in/easianyu/'>
           <BsLinkedin />
         </a>
       </div>
