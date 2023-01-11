@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, FormEvent } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -26,6 +26,8 @@ const Detail: NextPage<PostDetails> = ({ postDetails }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const router = useRouter();
   const { userProfile } = useAuthStore();
+  const [comment, setComment] = useState('');
+  const [isPostingComment, setIsPostingComment] = useState(false);
 
   useEffect(() => {
     if (post && videoRef.current) {
@@ -44,23 +46,38 @@ const Detail: NextPage<PostDetails> = ({ postDetails }) => {
   };
 
   const handleLike = async (like: boolean) => {
-    if (userProfile) {
-      const { data } = await axios.put(`${BASE_URL}/api/like`, {
-        userId: userProfile._id,
-        postId: post._id,
-        like,
-      });
+    if (!userProfile) return;
 
-      setPost({ ...post, likes: data.likes });
-    }
+    const { data } = await axios.put(`${BASE_URL}/api/like`, {
+      userId: userProfile._id,
+      postId: post._id,
+      like,
+    });
+
+    setPost({ ...post, likes: data.likes });
+  };
+
+  const addComment = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!userProfile || !comment) return;
+
+    setIsPostingComment(true);
+    const { data } = await axios.put(`${BASE_URL}/api/post/${post._id}`, {
+      userId: userProfile._id,
+      comment,
+    });
+
+    setPost({ ...post, comments: data.comments });
+    setComment('');
+    setIsPostingComment(false);
   };
 
   if (!post) return null;
 
   return (
     <div className='flex w-full absolute left-0 top-0 bg-white flex-wrap lg:flex-nowrap'>
-      <div className='relative flex-2 w-[1000px] lg:w-9/12 flex justify-center items-center bg-blurred-img bg-no-repeat bg-cover bg-center'>
-        <div className='opacity-90 absolute top-6 left-2 lg:left-6 flex gap-6 z-50'>
+      <div className='relative w-[1000px] lg:w-9/12 flex justify-center items-center bg-blurred-img bg-no-repeat bg-cover bg-center'>
+        <div className='opacity-90 absolute top-6 left-2 lg:left-6 z-50'>
           <p className=' cursor-pointer' onClick={() => router.back()}>
             <MdOutlineCancel className='text-white text-[35px] hover:opacity-90' />
           </p>
@@ -84,7 +101,7 @@ const Detail: NextPage<PostDetails> = ({ postDetails }) => {
           </div>
         </div>
 
-        <div className='absolute bottom-5 lg:bottom-10 right-5 lg:right-10  cursor-pointer'>
+        <div className='absolute bottom-5 lg:bottom-10 right-5 lg:right-10 cursor-pointer'>
           {isVideoMuted ? (
             <button onClick={() => setIsVideoMuted(false)}>
               <HiVolumeOff className='text-white text-3xl lg:text-4xl' />
@@ -141,9 +158,13 @@ const Detail: NextPage<PostDetails> = ({ postDetails }) => {
           )}
         </div>
 
-        <div>
-          <Comments />
-        </div>
+        <Comments
+          comment={comment}
+          setComment={setComment}
+          addComment={addComment}
+          comments={post.comments}
+          isPostingComment={isPostingComment}
+        />
       </div>
     </div>
   );
