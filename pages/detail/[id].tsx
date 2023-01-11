@@ -14,6 +14,7 @@ import { Video } from '../../types';
 import useAuthStore from '../../store/authStore';
 import LikeButton from '../../components/LikeButton';
 import Comments from '../../components/Comments';
+import VideoButton, { VIDEO_BUTTON_TYPE } from '../../components/VideoButton';
 
 type PostDetails = {
   postDetails: Video;
@@ -22,6 +23,7 @@ type PostDetails = {
 const Detail: NextPage<PostDetails> = ({ postDetails }) => {
   const [post, setPost] = useState(postDetails);
   const [isVideoMuted, setIsVideoMuted] = useState(false);
+  const [isHover, setIsHover] = useState(false);
   const [playing, setPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const router = useRouter();
@@ -82,7 +84,11 @@ const Detail: NextPage<PostDetails> = ({ postDetails }) => {
             <MdOutlineCancel className='text-white text-[35px] hover:opacity-90' />
           </p>
         </div>
-        <div className='relative'>
+        <div
+          className='relative'
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+        >
           <div className='lg:h-[100vh] h-[60vh]'>
             <video
               src={post.video.asset.url}
@@ -93,23 +99,43 @@ const Detail: NextPage<PostDetails> = ({ postDetails }) => {
             ></video>
           </div>
           <div className='absolute top-[45%] left-[40%] cursor-pointer'>
-            {playing && (
-              <button onClick={onVideoClick}>
-                <BsFillPlayFill className='text-white text-6xl lg:text-8xl' />
-              </button>
+            {isHover && (
+              <div className='flex justify-between w-full px-4 absolute bottom-3'>
+                {playing ? (
+                  <VideoButton
+                    onButtonPress={onVideoClick}
+                    buttonType={VIDEO_BUTTON_TYPE.pause}
+                    size=' text-6xl lg:text-8xl'
+                    opacity=' opacity-20'
+                  />
+                ) : (
+                  <VideoButton
+                    onButtonPress={onVideoClick}
+                    buttonType={VIDEO_BUTTON_TYPE.play}
+                    opacity=' opacity-20'
+                    size=' text-6xl lg:text-8xl'
+                  />
+                )}
+              </div>
             )}
           </div>
         </div>
 
         <div className='absolute bottom-5 lg:bottom-10 right-5 lg:right-10 cursor-pointer'>
           {isVideoMuted ? (
-            <button onClick={() => setIsVideoMuted(false)}>
-              <HiVolumeOff className='text-white text-3xl lg:text-4xl' />
-            </button>
+            <VideoButton
+              onButtonPress={() => setIsVideoMuted(false)}
+              buttonType={VIDEO_BUTTON_TYPE.mute}
+              size=' text-white text-3xl lg:text-4xl'
+              opacity=' opacity-100'
+            />
           ) : (
-            <button onClick={() => setIsVideoMuted(true)}>
-              <HiVolumeUp className='text-white text-3xl lg:text-4xl' />
-            </button>
+            <VideoButton
+              onButtonPress={() => setIsVideoMuted(true)}
+              buttonType={VIDEO_BUTTON_TYPE.unmute}
+              size=' text-white text-3xl lg:text-4xl'
+              opacity=' opacity-100'
+            />
           )}
         </div>
       </div>
