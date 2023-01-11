@@ -7,7 +7,6 @@ type Iprops = {
 };
 
 const NoResults: NextPage<Iprops> = ({ text }) => {
-  console.log('NoResults');
   return (
     <div className='flex flex-col justify-center items-center h-full w-full'>
       <p className='text-8xl'>
