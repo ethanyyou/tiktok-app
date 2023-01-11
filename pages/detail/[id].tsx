@@ -140,7 +140,7 @@ const Detail: NextPage<PostDetails> = ({ postDetails }) => {
         </div>
       </div>
 
-      <div className='flex flex-col w-[1000px] md:w-[900px] lg:w-[700px] box-border'>
+      <div className='flex flex-col w-full w-[1000px] md:w-[900px] lg:w-[700px] box-border'>
         <div className=' px-10 mb-1'>
           {/* avator and name of the poster */}
           <div className='flex gap-2 items-center lg:mt-20 mt-10'>

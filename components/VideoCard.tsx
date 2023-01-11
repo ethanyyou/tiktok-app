@@ -68,7 +68,7 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
       </div>
 
       <div
-        className='w-[200px] md:w-[300px] lg:w-[400px] rounded-2xl overflow-hidden ml-20 relative'
+        className='w-[250px] md:w-[300px] lg:w-[400px] rounded-2xl overflow-hidden lg:ml-20 relative'
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >

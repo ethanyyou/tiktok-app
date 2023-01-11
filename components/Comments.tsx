@@ -27,8 +27,8 @@ const Comments: FC<IProps> = ({ comment, setComment, isPostingComment, addCommen
   const { userProfile, allUsers } = useAuthStore();
 
   return (
-    <div className=' pt-4 border-t-2 border-gray-200 bg-[#F8F8F8] border-b-2 lg:pb-0 pb-[100px]'>
-      <div className=' lg:h-[475px] overflow-scroll lg:px-5'>
+    <div className=' pt-4 relative border-t-2 border-gray-200 bg-[#F8F8F8] border-b-2 lg:pb-0 pb-[100px]'>
+      <div className=' lg:h-[475px] overflow-scroll px-5'>
         {comments?.length ? (
           <div>
             {comments.map((comment, idx) => (
@@ -72,8 +72,8 @@ const Comments: FC<IProps> = ({ comment, setComment, isPostingComment, addCommen
       </div>
 
       {userProfile && (
-        <div className='absolute bottom-0 pb-6 px-10'>
-          <form onSubmit={addComment} className='flex gap-4'>
+        <div className='absolute bottom-6 w-full px-5'>
+          <form onSubmit={addComment} className=' flex gap-3'>
             <input
               value={comment}
               onChange={(e) => setComment(e.target.value)}
