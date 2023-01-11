@@ -8,6 +8,7 @@ import type { SanityAssetDocument } from '@sanity/client';
 import useAuthStore from '../store/authStore';
 import { client } from '../utils/client';
 import { topics } from '../utils/constants';
+import { BASE_URL } from '../utils';
 
 const fileTypesSet = new Set(['video/mp4', 'video/webm', 'video/ogg']);
 
@@ -60,7 +61,7 @@ const Upload = () => {
       topic: category,
     };
 
-    const data = await axios.post('http://localhost:3000/api/post', document);
+    const data = await axios.post(`${BASE_URL}/api/post`, document);
     router.push('/');
   };
 

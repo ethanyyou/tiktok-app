@@ -18,6 +18,12 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
   const [isVideoMuted, setIsVideoMuted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = isVideoMuted;
+    }
+  }, [isVideoMuted]);
+
   const onVideoPress = () => {
     if (playing) {
       videoRef?.current?.pause();
@@ -65,7 +71,7 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
-        <Link href='#'>
+        <Link href={`/detail/${post._id}`}>
           <video
             className=' w-full rounded-2xl'
             ref={videoRef}
