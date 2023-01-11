@@ -15,8 +15,8 @@ const SuggestedAccounts = () => {
   }, []);
 
   return (
-    <div className='xl:border-b-2 border-gray-200 pb-4'>
-      <p className=' text-gray-500 font-semibold m-3 mt-4 hidden xl:block'>Suggested Accounts</p>
+    <div className='xl:border-b-2 border-gray-200 pb-4 hidden xl:block'>
+      <p className=' text-gray-500 font-semibold m-3 mt-4 '>Suggested Accounts</p>
       <div>
         {allUsers.slice(0, 6).map((user) => (
           <Link key={user._id} href={`/profile/${user._id}`}>

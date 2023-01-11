@@ -66,15 +66,15 @@ const Upload = () => {
   };
 
   return (
-    <div className=' flex w-full h-full absolute left-0 top-[60px] mb-10 pt-10 lg:pt-20 justify-center bg-[#F8F8F8]'>
-      <div className=' w-[60%] xl:h-[80vh] bg-white'>
-        <div className='flex flex-col  rounded-lg p-20 pt-40'>
-          <div>
+    <div className=' flex w-full md:h-full absolute left-0 top-[60px] lg:top-[80px] mb-10 pt-10 lg:pt-20 justify-center bg-[#F8F8F8]'>
+      <div className=' w-[80vw] md:w-[60%] xl:h-[80vh] bg-white pb-10'>
+        <div className='flex flex-col items-center lg:block rounded-lg md:p-20 md:pt-40 pt-10'>
+          <div className=' flex flex-col items-center lg:block'>
             <p className=' text-2xl font-bold'>Upload Video</p>
             <p className=' text-base text-gray-400 mt-1'>Post a video to your account</p>
           </div>
-          <div className='flex mt-10 justify-between gap-6'>
-            <div className=' flex flex-col justify-center w-[260px] h-[460px] border-dashed border-4 rounded-xl border-gray-200 cursor-pointer hover:border-red-300 hover:bg-gray-100 outline-none'>
+          <div className='flex flex-col items-center lg:flex-row mt-10 justify-between gap-6'>
+            <div className=' flex flex-col justify-center w-[260px] h-[360px] lg:h-[460px] border-dashed border-4 rounded-xl border-gray-200 cursor-pointer hover:border-red-300 hover:bg-gray-100 outline-none'>
               {isLoading ? (
                 <p className='text-center text-3xl text-red-400 font-semibold'> Uploading </p>
               ) : (
@@ -97,7 +97,7 @@ const Upload = () => {
                           </p>
                           <p className=' text-xl font-semibold'>Upload Video</p>
                         </div>
-                        <p className=' text-sm leading-10 text-gray-400 text-center mt-5'>
+                        <p className='text-sm leading-7 md:leading-10 text-gray-400 text-center mt-5'>
                           MP4 or WebM or ogg <br />
                           720x1280 or higher <br />
                           Up to 10 minutes <br />
@@ -124,7 +124,7 @@ const Upload = () => {
               )}
             </div>
 
-            <div className=' flex flex-col gap-3'>
+            <div className=' flex flex-col gap-3 '>
               <label className=' font-medium'>Caption</label>
               <input
                 type='text'
