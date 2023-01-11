@@ -5,15 +5,16 @@ import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
 import { BsPlay, BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
 import { GoVerified } from 'react-icons/go';
 import type { NextPage } from 'next';
-import type { Video } from '../types';
+import { Video } from '../types';
 import Discover from './Discover';
+import VideoButton, { VIDEO_BUTTON_TYPE } from './VideoButton';
 
 type IProps = {
   post: Video;
 };
 
 const VideoCard: NextPage<IProps> = ({ post }) => {
-  const [isHover, setIsHover] = useState(true);
+  const [isHover, setIsHover] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -38,7 +39,7 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
     <div className='flex flex-col border-b-2 border-gray-200 pb-6'>
       <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded'>
         <div className='md:w-16 md:h-16 w-10 h-10'>
-          <Link href='#'>
+          <Link href={`/profile/${post.postedBy._id}`}>
             <>
               <Image
                 width={62}
@@ -51,7 +52,7 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
           </Link>
         </div>
         <div>
-          <Link href='#'>
+          <Link href={`/profile/${post.postedBy._id}`}>
             <div className=' flex gap-2 items-center'>
               <p className=' flex gap-2 items-center md:text-base font-bold text-primary'>
                 {post.postedBy.userName}
@@ -67,7 +68,7 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
       </div>
 
       <div
-        className='w-[200px] md:w-[300px] lg:w-[400px] rounded-2xl overflow-hidden ml-20'
+        className='w-[200px] md:w-[300px] lg:w-[400px] rounded-2xl overflow-hidden ml-20 relative'
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
@@ -80,24 +81,22 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
           ></video>
         </Link>
         {isHover && (
-          <div className='flex justify-center gap-32 px-5 py-3'>
+          <div className='flex justify-between w-full px-4 absolute bottom-3'>
             {playing ? (
-              <button onClick={onVideoPress}>
-                <BsFillPauseFill className='text-black text-2xl lg:text-4xl' />
-              </button>
+              <VideoButton onButtonPress={onVideoPress} buttonType={VIDEO_BUTTON_TYPE.pause} />
             ) : (
-              <button onClick={onVideoPress}>
-                <BsFillPlayFill className='text-black text-2xl lg:text-4xl' />
-              </button>
+              <VideoButton onButtonPress={onVideoPress} buttonType={VIDEO_BUTTON_TYPE.play} />
             )}
             {isVideoMuted ? (
-              <button onClick={() => setIsVideoMuted(false)}>
-                <HiVolumeOff className='text-black text-2xl lg:text-4xl' />
-              </button>
+              <VideoButton
+                onButtonPress={() => setIsVideoMuted(false)}
+                buttonType={VIDEO_BUTTON_TYPE.mute}
+              />
             ) : (
-              <button onClick={() => setIsVideoMuted(true)}>
-                <HiVolumeUp className='text-black text-2xl lg:text-4xl' />
-              </button>
+              <VideoButton
+                onButtonPress={() => setIsVideoMuted(true)}
+                buttonType={VIDEO_BUTTON_TYPE.unmute}
+              />
             )}
           </div>
         )}
