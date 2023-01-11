@@ -114,48 +114,52 @@ const Detail: NextPage<PostDetails> = ({ postDetails }) => {
         </div>
       </div>
 
-      <div className='flex flex-col w-[1000px] md:w-[900px] lg:w-[700px] px-10 box-border'>
-        <div className='flex gap-2 items-center lg:mt-20 mt-10'>
-          <div className='md:w-16 md:h-16 w-10 h-10'>
-            <Link href='#'>
-              <>
-                <Image
-                  width={62}
-                  height={62}
-                  src={post.postedBy.image}
-                  alt='profile photo'
-                  className=' rounded-full'
-                />
-              </>
-            </Link>
+      <div className='flex flex-col w-[1000px] md:w-[900px] lg:w-[700px] box-border'>
+        <div className=' px-10 mb-1'>
+          {/* avator and name of the poster */}
+          <div className='flex gap-2 items-center lg:mt-20 mt-10'>
+            <div className='md:w-16 md:h-16 w-10 h-10'>
+              <Link href='#'>
+                <>
+                  <Image
+                    width={62}
+                    height={62}
+                    src={post.postedBy.image}
+                    alt='profile photo'
+                    className=' rounded-full'
+                  />
+                </>
+              </Link>
+            </div>
+            <div>
+              <Link href='#' className=' flex flex-col gap-1'>
+                <p className=' flex gap-2 items-center md:text-base font-bold text-primary'>
+                  {post.postedBy.userName}
+                  {` `}
+                  <GoVerified className=' text-blue-400 text-base' />
+                </p>
+                <p className=' capitalize font-medium text-xs text-gray-500 hidden md:block'>
+                  {post.postedBy.userName}
+                </p>
+              </Link>
+            </div>
           </div>
-          <div>
-            <Link href='#' className=' flex flex-col gap-1'>
-              <p className=' flex gap-2 items-center md:text-base font-bold text-primary'>
-                {post.postedBy.userName}
-                {` `}
-                <GoVerified className=' text-blue-400 text-base' />
-              </p>
-              <p className=' capitalize font-medium text-xs text-gray-500 hidden md:block'>
-                {post.postedBy.userName}
-              </p>
-            </Link>
+
+          {/* post caption */}
+          <div className=' mt-5'>
+            <p className=' text-md text-gray-400'>{post.caption}</p>
           </div>
-        </div>
 
-        <div className=' mt-5'>
-          <p className=' text-md text-gray-400'>{post.caption}</p>
-        </div>
-
-        {/* like button */}
-        <div className='mt-10 ml-3'>
-          {userProfile && (
-            <LikeButton
-              likes={post.likes}
-              handleLike={() => handleLike(true)}
-              handleDislike={() => handleLike(false)}
-            />
-          )}
+          {/* like button */}
+          <div className='mt-10 ml-3'>
+            {userProfile && (
+              <LikeButton
+                likes={post.likes}
+                handleLike={() => handleLike(true)}
+                handleDislike={() => handleLike(false)}
+              />
+            )}
+          </div>
         </div>
 
         <Comments

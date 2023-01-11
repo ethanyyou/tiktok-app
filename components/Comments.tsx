@@ -24,16 +24,55 @@ type Comment = {
 };
 
 const Comments: FC<IProps> = ({ comment, setComment, isPostingComment, addComment, comments }) => {
-  const { userProfile } = useAuthStore();
+  const { userProfile, allUsers } = useAuthStore();
 
   return (
     <div className=' pt-4 border-t-2 border-gray-200 bg-[#F8F8F8] border-b-2 lg:pb-0 pb-[100px]'>
-      <div className=' lg:h-[475px] overflow-scroll'>
-        {comments?.length ? <div>videos</div> : <NoResults text='No comments yet!' />}
+      <div className=' lg:h-[475px] overflow-scroll lg:px-5'>
+        {comments?.length ? (
+          <div>
+            {comments.map((comment, idx) => (
+              <>
+                {allUsers.map(
+                  (user) =>
+                    user._id === (comment.postedBy._id || comment.postedBy._ref) && (
+                      <div key={idx} className='p-2'>
+                        <Link href={`/profile/${user._id}`} className='flex items-start gap-3'>
+                          <div className=' w-8 h-8'>
+                            <Image
+                              src={user.image}
+                              width={34}
+                              height={34}
+                              alt=''
+                              className=' rounded-full'
+                            ></Image>
+                          </div>
+
+                          <div className='hidden lg:block'>
+                            <p className='flex gap-1 items-center text-base font-bold text-primary lowercase'>
+                              {user.userName.replace(' ', '')}
+                              <GoVerified className=' text-blue-400' />
+                            </p>
+                            <p className=' capitalize text-gray-400 text-sm'>{user.userName}</p>
+                          </div>
+                        </Link>
+
+                        <div>
+                          <p>{comment.comment}</p>
+                        </div>
+                      </div>
+                    )
+                )}
+              </>
+            ))}
+          </div>
+        ) : (
+          <NoResults text='No comments yet!' />
+        )}
       </div>
 
       {userProfile && (
-        <div className='absolute bottom-0 pb-6 '>
+        <div className='absolute bottom-0 pb-6 px-10'>
           <form onSubmit={addComment} className='flex gap-4'>
             <input
               value={comment}
