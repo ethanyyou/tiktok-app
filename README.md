@@ -3,5 +3,5 @@
 
 
 Deployed at
-[Yixuan's TikTik]().
+[Yixuan's TikTik](https://tiktok-app-plum.vercel.app/).
 
