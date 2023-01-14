@@ -73,14 +73,18 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
         onMouseLeave={() => setIsHover(false)}
       >
         <Link href={`/detail/${post._id}`}>
-          <video
-            className=' w-full rounded-2xl'
-            ref={videoRef}
-            src={post.video.asset.url}
-            playsInline
-            autoPlay
-            muted
-          ></video>
+          <div className='border-dashed border-4 rounded-xl border-gray-300 relative'>
+            <video
+              className=' w-full rounded-2xl'
+              ref={videoRef}
+              src={post.video.asset.url}
+              playsInline
+              muted
+            ></video>
+            <span className=' absolute left-11 top-[50%] font-semibold text-lg text-gray-400 -z-[1]'>
+              Tap to Show Video
+            </span>
+          </div>
         </Link>
         {isHover && (
           <div className='flex justify-between w-full px-4 absolute bottom-3'>
