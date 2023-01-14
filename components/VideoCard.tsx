@@ -77,7 +77,9 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
             className=' w-full rounded-2xl'
             ref={videoRef}
             src={post.video.asset.url}
-            loop
+            playsInline
+            autoPlay
+            muted
           ></video>
         </Link>
         {isHover && (

@@ -72,7 +72,7 @@ const Comments: FC<IProps> = ({ comment, setComment, isPostingComment, addCommen
       </div>
 
       {userProfile && (
-        <div className='absolute bottom-6 w-full px-5'>
+        <div className='absolute translate-y-4 w-full px-5'>
           <form onSubmit={addComment} className=' flex gap-3'>
             <input
               value={comment}
