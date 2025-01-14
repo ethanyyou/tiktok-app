@@ -22,23 +22,30 @@ const Navbar = () => {
   };
 
   return (
-    <div className='w-full flex justify-between items-center border-b-2 border-gray-200 py-2 px-4'>
+    // <div className='w-full flex justify-between items-center border-b-2 border-gray-200 py-2 px-4'>
+    <div className='flex items-center justify-between border-[10px] border-black h-96'>
+
+      <div className='relative h-32 w-32 bg-red-300 text-center'>
+        <div className='h-10 w-10 bg-cyan-400 border border-black absolute top-4 left-4'></div>
+        <div className='h-10 w-10 bg-yellow-100'></div>
+        <div className='h-10 w-10 bg-green-400'></div>
+      </div>
       <Link href='/'>
         <div className='relative w-[100px] md:w-[130px] md:h-[40px] h-[30px]'>
           <Image className='cursor-pointer' src='/tiktik-logo.png' alt='Tiktik' fill />
         </div>
       </Link>
 
-      <div className=' relative hidden md:block'>
+      <div className='relative hidden md:block'>
         <form
           action=''
           onSubmit={searchHandler}
-          className='absolute md:static top-10 -left-20 bg-white'
+          className='absolute md:static top-10 -left-20 bg-red-900'
         >
           <input
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-            className='bg-primary p-3 md:text-md font-medium border-2 border-gray-100 focus:outline-none focus:border-2 focus:border-gray-300 w-[300px] md:w-[350px] rounded-full  md:top-0'
+            className='bg-primary p-3 md:text-md font-medium border-2 border-gray-100 focus:outline-none focus:border-2 focus:border-gray-300 w-[300px] md:w-[350px] rounded-full  md:top-10'
             placeholder='Search accounts and videos'
           />
           <button
